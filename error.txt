@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "C:\Users\MULTLAB 01\AppData\Local\Programs\Python\Python39\Lib\site-packages\PyInstaller\hooks\rthooks\pyi_rth_win32comgenpy.py", line 40, in <module>
+    import win32com  # noqa: E402
+  File "PyInstaller\loader\pyimod03_importers.py", line 476, in exec_module
+  File "win32com\__init__.py", line 6, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 476, in exec_module
+  File "pythoncom.py", line 4, in <module>
+  File "pywintypes.py", line 44, in __import_pywin32_system_module__
+ImportError: Module 'pythoncom' isn't in frozen sys.path ['C:\\Users\\MULTLAB 01\\Desktop\\pycharm\\new app\\main\\base_library.zip', 'C:\\Users\\MULTLAB 01\\Desktop\\pycharm\\new app\\main\\lib-dynload', 'C:\\Users\\MULTLAB 01\\Desktop\\pycharm\\new app\\main']
