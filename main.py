@@ -1,8 +1,8 @@
 import os
 import sys
+import math
 
 import xlwings as xw
-import math
 from kivy.config import Config
 from docx import *
 from docx.enum.table import WD_TABLE_ALIGNMENT
@@ -327,7 +327,7 @@ class MainLayout(TabbedPanel):
         font1.size = Pt(20)
         font1.bold = True
 
-        head2 = doc.add_paragraph("METROLOGY LABORATORY")
+        head2 = doc.add_paragraph("METROLOGY LABORATORY\n“a SADCAS Accredited Calibration Laboratory, No. CAL-15001”")
         head2.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         head2.style = doc.styles.add_style('Style name2', WD_STYLE_TYPE.PARAGRAPH)
         font2 = head2.style.font
@@ -335,12 +335,7 @@ class MainLayout(TabbedPanel):
         font2.size = Pt(16)
         font2.bold = True
 
-        para_h = doc.add_paragraph("“a SADCAS Accredited Calibration Laboratory, No. CAL-15001”")
-        para_h.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-        font2 = para_h.style.font
-        font2.name = 'Arial'
-        font2.size = Pt(16)
-        font2.bold = True
+
 
         para1 = doc.add_paragraph(
             "This certificate of calibration is issued in accordance with section 4 (1) (b) of the "
@@ -483,9 +478,9 @@ class MainLayout(TabbedPanel):
         if '.' in rel_humid:
             rel_humid = rel_humid.replace('.', ',')
 
-        para5 = doc.add_paragraph(f"\tThe calibration was carried out at an ambient "
+        para5 = doc.add_paragraph(f"    The calibration was carried out at an ambient "
                                   f"temperature of {amb_temp}°C and "
-                                  f"relative humidity of \t{rel_humid}% RH ")
+                                  f"relative humidity of\t{rel_humid}% RH ")
         para5.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para5.paragraph_format.line_spacing = 1.5
         para5.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
@@ -506,8 +501,8 @@ class MainLayout(TabbedPanel):
         font.size = Pt(11)
         font.bold = True
 
-        para7 = doc.add_paragraph(f"\tStandard Timer with Identification number {self.Std_timer_id},with certificate "
-                                  f"number {self.Std_timer_cert} Thermo -\thygrometer with serial {self.Thermo_serial},"
+        para7 = doc.add_paragraph(f"    Standard Timer with Identification number {self.Std_timer_id}, with certificate "
+                                  f"number {self.Std_timer_cert} Thermo-hygrometer with serial {self.Thermo_serial},"
                                   f" certificate number {self.Thermo_cert} valid up to {self.Valid}")
         para7.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para7.paragraph_format.line_spacing = 1.5
@@ -530,7 +525,7 @@ class MainLayout(TabbedPanel):
         font.bold = True
 
         para9 = doc.add_paragraph(
-            f"\tTimer was calibrated by comparison with the standard timer using Method {self.Method_of_calibration} ")
+            f"    Timer was calibrated by comparison with the standard timer using Method {self.Method_of_calibration} ")
         para9.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para9.paragraph_format.line_spacing = 1.5
         para9.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
@@ -552,9 +547,8 @@ class MainLayout(TabbedPanel):
         font.bold = True
 
         para11 = doc.add_paragraph(
-            f"\tThe results are through regular calibration of the used equipment traceable to the"
-            f"Swedish \tNational Laboratory for electrical quantities (RMP 01) at RISE Research "
-            f"Institutes of Sweden.")
+            f"    The results are through regular calibration of the used equipment traceable to the"
+            f" Swedish National Laboratory for electrical quantities (RMP 01) at RISE Research Institutes of Sweden.")
         para11.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para11.paragraph_format.line_spacing = 1.5
         para11.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
@@ -563,6 +557,7 @@ class MainLayout(TabbedPanel):
         font.name = "Arial"
         font.size = Pt(11)
         font.bold = False
+        ron = para11.add_run("    ")
 
         para12 = doc.add_paragraph("5. CALIBRATION RESULTS")
         para12.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
@@ -592,7 +587,7 @@ class MainLayout(TabbedPanel):
             std_1 = std_1.replace(',', '.')
 
         std_1 = float(std_1)
-        c_1 = dut_1 - std_1
+        c_1 = std_1 - dut_1
 
         if res == 0.5:
             c_1 = round(c_1)
@@ -603,7 +598,7 @@ class MainLayout(TabbedPanel):
         elif res == 0.005:
             c_1 = round(c_1, 2)
 
-        if dut_1 > std_1:
+        if std_1 > dut_1:
             c_1 = f"+{c_1}"
         c_1 = str(c_1)
         if '.' in c_1:
@@ -626,7 +621,7 @@ class MainLayout(TabbedPanel):
             std_2 = std_2.replace(',', '.')
 
         std_2 = float(std_2)
-        c_2 = dut_2 - std_2
+        c_2 = std_2 - dut_2
 
         if res == 0.5:
             c_2 = round(c_2)
@@ -637,7 +632,7 @@ class MainLayout(TabbedPanel):
         elif res == 0.005:
             c_2 = round(c_2, 2)
 
-        if dut_2 > std_2:
+        if std_2 > dut_2:
             c_2 = f"+{c_2}"
         c_2 = str(c_2)
         if '.' in c_2:
@@ -660,7 +655,7 @@ class MainLayout(TabbedPanel):
             std_3 = std_3.replace(',', '.')
 
         std_3 = float(std_3)
-        c_3 = dut_3 - std_3
+        c_3 = std_3 - dut_3
 
         if res == 0.5:
             c_3 = round(c_3)
@@ -671,7 +666,7 @@ class MainLayout(TabbedPanel):
         elif res == 0.005:
             c_3 = round(c_3, 2)
 
-        if dut_3 > std_3:
+        if std_3 > dut_3:
             c_3 = f"+{c_3}"
         c_3 = str(c_3)
         if '.' in c_3:
@@ -694,7 +689,7 @@ class MainLayout(TabbedPanel):
             std_4 = std_4.replace(',', '.')
 
         std_4 = float(std_4)
-        c_4 = dut_4 - std_4
+        c_4 = std_4 - dut_4
 
         if res == 0.5:
             c_4 = round(c_4)
@@ -705,7 +700,7 @@ class MainLayout(TabbedPanel):
         elif res == 0.005:
             c_4 = round(c_4, 2)
 
-        if dut_4 > std_4:
+        if std_4 > dut_4:
             c_4 = f"+{c_4}"
         c_4 = str(c_4)
         if '.' in c_4:
@@ -728,7 +723,7 @@ class MainLayout(TabbedPanel):
             std_5 = std_5.replace(',', '.')
 
         std_5 = float(std_5)
-        c_5 = dut_5 - std_5
+        c_5 = std_5 - dut_5
 
         if res == 0.5:
             c_5 = round(c_5)
@@ -739,7 +734,7 @@ class MainLayout(TabbedPanel):
         elif res == 0.005:
             c_5 = round(c_5, 2)
 
-        if dut_5 > std_5:
+        if std_5 > dut_5:
             c_5 = f"+{c_5}"
         c_5 = str(c_5)
         if '.' in c_5:
@@ -873,6 +868,17 @@ class MainLayout(TabbedPanel):
         font.size = Pt(11)
         font.bold = False
 
+        para25 = doc.add_paragraph("\n\n\n“END OF CERTIFICATE”")
+        para25.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
+        para25.paragraph_format.line_spacing = 1.5
+        para25.paragraph_format.space_after = 0
+        para25.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        para25.style = doc.styles.add_style('Style name_25', WD_STYLE_TYPE.PARAGRAPH)
+        font = para25.style.font
+        font.name = "Arial"
+        font.size = Pt(11)
+        font.bold = True
+
         doc.save(resource_path(f'Certificates\{Certificate_No}.docx'))
 
 
@@ -900,7 +906,7 @@ MainLayout:
             on_release: root.dismiss()
 <MainLayout>:
     do_default_tab: False
-    tab_width: "150dp"
+    tab_width: "200dp"
 
     TabbedPanelItem:
         text: "Customer Details"
