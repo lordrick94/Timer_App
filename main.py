@@ -174,6 +174,11 @@ class MainLayout(TabbedPanel):
     def resolution(self, widget):
         self.Resolution = widget.text
 
+    Remarks = StringProperty("DUT Means device under test")
+
+    def remarks(self, widget):
+        self.Remarks = widget.text
+
     D_1 = StringProperty("60")
 
     def d_1(self, widget):
@@ -459,7 +464,7 @@ class MainLayout(TabbedPanel):
         font.italic = True
         font.bold = False
 
-        para4 = doc.add_paragraph("1. CALIBRATION CONDITIONS")
+        para4 = doc.add_paragraph("1.\tCALIBRATION CONDITIONS")
         para4.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para4.paragraph_format.line_spacing = 1.5
         para4.paragraph_format.space_after = 0
@@ -478,7 +483,7 @@ class MainLayout(TabbedPanel):
         if '.' in rel_humid:
             rel_humid = rel_humid.replace('.', ',')
 
-        para5 = doc.add_paragraph(f"    The calibration was carried out at an ambient "
+        para5 = doc.add_paragraph(f"\tThe calibration was carried out at an ambient "
                                   f"temperature of {amb_temp}°C and "
                                   f"relative humidity of\t{rel_humid}% RH ")
         para5.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
@@ -490,7 +495,7 @@ class MainLayout(TabbedPanel):
         font.size = Pt(11)
         font.bold = False
 
-        para6 = doc.add_paragraph("2. EQUIPMENT AND STANDARDS USED")
+        para6 = doc.add_paragraph("2.\tEQUIPMENT AND STANDARDS USED")
         para6.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para6.paragraph_format.line_spacing = 1.5
         para6.paragraph_format.space_after = 0
@@ -501,8 +506,8 @@ class MainLayout(TabbedPanel):
         font.size = Pt(11)
         font.bold = True
 
-        para7 = doc.add_paragraph(f"    Standard Timer with Identification number {self.Std_timer_id}, with certificate "
-                                  f"number {self.Std_timer_cert} Thermo-hygrometer with serial {self.Thermo_serial},"
+        para7 = doc.add_paragraph(f"\tStandard Timer with Identification number {self.Std_timer_id}, with certificate "
+                                  f"number {self.Std_timer_cert} Thermo-\thygrometer with serial {self.Thermo_serial},"
                                   f" certificate number {self.Thermo_cert} valid up to {self.Valid}")
         para7.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para7.paragraph_format.line_spacing = 1.5
@@ -513,7 +518,7 @@ class MainLayout(TabbedPanel):
         font.size = Pt(11)
         font.bold = False
 
-        para8 = doc.add_paragraph("3. CALIBRATION PROCEDURE")
+        para8 = doc.add_paragraph("3.\tCALIBRATION PROCEDURE")
         para8.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para8.paragraph_format.line_spacing = 1.5
         para8.paragraph_format.space_after = 0
@@ -525,7 +530,7 @@ class MainLayout(TabbedPanel):
         font.bold = True
 
         para9 = doc.add_paragraph(
-            f"    Timer was calibrated by comparison with the standard timer using Method {self.Method_of_calibration} ")
+            f"\tTimer was calibrated by comparison with the standard timer using Method {self.Method_of_calibration} ")
         para9.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para9.paragraph_format.line_spacing = 1.5
         para9.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
@@ -535,7 +540,7 @@ class MainLayout(TabbedPanel):
         font.size = Pt(11)
         font.bold = False
 
-        para10 = doc.add_paragraph("4. TRACEABILITY")
+        para10 = doc.add_paragraph("4\tTRACEABILITY")
         para10.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para10.paragraph_format.line_spacing = 1.5
         para10.paragraph_format.space_after = 0
@@ -547,8 +552,8 @@ class MainLayout(TabbedPanel):
         font.bold = True
 
         para11 = doc.add_paragraph(
-            f"    The results are through regular calibration of the used equipment traceable to the"
-            f" Swedish National Laboratory for electrical quantities (RMP 01) at RISE Research Institutes of Sweden.")
+            f" \tThe results are through regular calibration of the used equipment traceable to the"
+            f" Swedish \tNational Laboratory for electrical quantities (RMP 01) at RISE Research Institutes of Sweden.")
         para11.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para11.paragraph_format.line_spacing = 1.5
         para11.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
@@ -559,7 +564,7 @@ class MainLayout(TabbedPanel):
         font.bold = False
         ron = para11.add_run("    ")
 
-        para12 = doc.add_paragraph("5. CALIBRATION RESULTS")
+        para12 = doc.add_paragraph("5.\tCALIBRATION RESULTS")
         para12.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para12.paragraph_format.line_spacing = 1.5
         para12.paragraph_format.space_after = 0
@@ -740,6 +745,10 @@ class MainLayout(TabbedPanel):
         if '.' in c_5:
             c_5 = c_5.replace('.', ',')
 
+        uncertainty = str(uncertainty)
+        if '.' in uncertainty:
+            uncertainty = uncertainty.replace('.', ',')
+
         data_sheet = [[self.D_1, self.S_1, c_1, uncertainty],
                       [self.D_2, self.S_2, c_2, uncertainty],
                       [self.D_3, self.S_3, c_3, uncertainty],
@@ -857,7 +866,7 @@ class MainLayout(TabbedPanel):
         font.size = Pt(11)
         font.bold = True
 
-        para22 = doc.add_paragraph('    7.1\tDUT Means device under test')
+        para22 = doc.add_paragraph(f'    7.1\t{self.Remarks}')
 
         para22.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
         para22.paragraph_format.line_spacing = 1.5
@@ -1411,7 +1420,23 @@ MainLayout:
 
                         Label:
                             text: root.S_5
-
+            GridLayout:
+                size_hint: 1,0.4
+                cols:2 
+                Label:
+                    text: "Enter Your remarks Below"
+                    
+                Label:
+                    text: "Your remarks entered are"
+                    
+                TextInput:
+                    text: "DUT Means device under test"
+                    on_focus: "DUT Means device under test"
+                    multiline: False
+                    on_text_validate: root.remarks(self)
+                    
+                Label:
+                    text: root.Remarks
 
             Button:
                 text: "Generate Certificate"
