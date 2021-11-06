@@ -19,7 +19,6 @@ from kivy.properties import StringProperty, ObjectProperty
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.screenmanager import ScreenManager,Screen
-from kivy.uix.tabbedpanel import TabbedPanel
 from datetime import date
 import kivy
 
@@ -32,7 +31,7 @@ def resource_path(relative_path):
 
 kivy.require('1.9.0')
 
-Config.set('graphics', 'width', '1200')
+Config.set('graphics', 'width', '1000')
 Config.set('graphics', 'height', '600')
 
 Builder.load_string("""
@@ -43,22 +42,23 @@ Builder.load_string("""
             source: "TBS_Building.PNG"
             size: self.size
             pos: self.pos
-
+        
     password: password
     BoxLayout:
         orientation: "vertical"
         spacing: 50
         padding: dp(50)
         pos_hint: {"center_x":0.5,"center_y":0.5}
-
+        
         Image:
             source: "tbs_logo.png"
-
+        
         Label:
-            font_size: "20dp"
+            font_size: "30dp"
             text: "Welcome To the Timer Certificate Generator App"
-            color: 'turquoise'
-
+            font_name: "Lemonada.ttf"
+            color: 'turquoise' 
+                       
         GridLayout:
             cols: 2
             size_hint: 0.5,0.5
@@ -66,8 +66,9 @@ Builder.load_string("""
             Label:
                 font_size: "20dp"
                 text: "Password:"
-                color: 'turquoise'
-
+                font_name: "Lemonada.ttf"
+                color: 'turquoise' 
+                
             TextInput:
                 id: password
                 text: ""
@@ -75,19 +76,20 @@ Builder.load_string("""
                 font_size: "20dp"
                 padding_y: "10dp","1dp"
                 password: True
-
+                            
         Button:
             size_hint: 0.2,0.5
             pos_hint: {"center_x":0.5}
             text: "Login"
             font_size: dp(20)
+            font_name: "Lemonada.ttf"
             color:"turquoise"
             on_press: root.login_button()
 
 <MyPopup@Popup>:
     auto_dismiss: False
     title: "Generator Info - Lordrick Apps"
-    size_hint: 0.5,0.3
+    size_hint: 0.6,0.3
     pos_hint: {"center_x": 0.5}
     BoxLayout:
         orientation: "vertical"
@@ -632,7 +634,7 @@ Builder.load_string("""
                     text: "Generate Certificate"
                     color: '#00FFCE'
                     font_name: 'Lemonada'
-                    font_size: '22dp'
+                    font_size: '20dp'
                     size_hint: 0.25,0.25
                     pos_hint: {"center_x": 0.5}
                     on_press: root.certificate_generator()
