@@ -31,7 +31,7 @@ def resource_path(relative_path):
 
 kivy.require('1.9.0')
 
-Config.set('graphics', 'width', '1000')
+Config.set('graphics', 'width', '1200')
 Config.set('graphics', 'height', '600')
 
 Builder.load_string("""
@@ -57,7 +57,7 @@ Builder.load_string("""
             font_size: "30dp"
             text: "Welcome To the Timer Certificate Generator App"
             font_name: "Lemonada.ttf"
-            color: 'turquoise' 
+            color: 'red' 
                        
         GridLayout:
             cols: 2
@@ -67,15 +67,16 @@ Builder.load_string("""
                 font_size: "20dp"
                 text: "Password:"
                 font_name: "Lemonada.ttf"
-                color: 'turquoise' 
+                color: 'red' 
                 
             TextInput:
                 id: password
                 text: ""
                 multiline: False
-                font_size: "20dp"
+                font_size: "30dp"
                 padding_y: "10dp","1dp"
                 password: True
+                on_text_validate: root.login_button()
                             
         Button:
             size_hint: 0.2,0.5
@@ -83,7 +84,7 @@ Builder.load_string("""
             text: "Login"
             font_size: dp(20)
             font_name: "Lemonada.ttf"
-            color:"turquoise"
+            color:"red"
             on_press: root.login_button()
 
 <MyPopup@Popup>:
@@ -106,6 +107,11 @@ Builder.load_string("""
             pos_hint: {"center_x": 0.5}
             on_release: root.dismiss()
 <MainLayout>:
+    canvas:
+        Rectangle:
+            source: "TBS_Building.PNG"
+            size: self.size
+            pos: self.pos
     TabbedPanel:
         do_default_tab: False
         tab_width: "200dp"
@@ -652,10 +658,11 @@ class Login(Screen):
         if self.password.text == 'MET-TF-03-Timer':
             sm.current = "main"
         else:
-            invalid_Password()
+            invalid_password()
+            self.password.text = ''
 
 
-def invalid_Password():
+def invalid_password():
     pop = Popup(title='Generator Info- Lordrick Apps',
                 content=Label(text='Invalid password.'),
                 size_hint=(None, None), size=(dp(400), dp(100)))
@@ -976,8 +983,6 @@ class MainLayout(Screen):
         font2.size = Pt(16)
         font2.bold = True
 
-
-
         para1 = doc.add_paragraph(
             "This certificate of calibration is issued in accordance with section 4 (1) (b) of the "
             "Standards Act No.2 of 2009. The certificate has been issued without any alteration and may "
@@ -1198,7 +1203,6 @@ class MainLayout(Screen):
         font.name = "Arial"
         font.size = Pt(11)
         font.bold = False
-        ron = para11.add_run("    ")
 
         para12 = doc.add_paragraph("5.\tCALIBRATION RESULTS")
         para12.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
