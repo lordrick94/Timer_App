@@ -1536,6 +1536,8 @@ class MainLayout(Screen):
 
 class TIMER_CERTIFICATE_GENERATORApp(App):
     def build(self):
+        self.title = "TBS Timer App"
+        self.icon = "ico_tbs.png"
         sm.add_widget(Login(name='login'))
         sm.add_widget(MainLayout(name='main'))
         return sm
