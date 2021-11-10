@@ -680,6 +680,7 @@ class MainLayout(Screen):
         if value == True:
             self.unit = units
 
+
     certificate_number = StringProperty("34552")
 
     def cert_numb(self, widget):
@@ -889,6 +890,9 @@ class MainLayout(Screen):
 
         if self.unit == 'minutes':
             ws.range('D16').value = "Time interval (minutes)"
+            ws.range('D17').value = "Uncertainty (minutes)"
+            ws.range('F17').value = "u(xi) (minutes)"
+            ws.range('H17').value = "u(yi) (minutes)"
             ws.range('D18').value = ws.range('D18').value / 60
             ws.range('D19').value = ws.range('D19').value / 60
             ws.range('D20').value = ws.range('D20').value / 60
@@ -905,6 +909,9 @@ class MainLayout(Screen):
 
         elif 0.01 < uncertainty <= 0.07:
             uncertainty = 0.07
+
+        elif 0.07<uncertainty<0.1:
+            uncertainty = 0.1
 
         else:
             uncertainty = math.ceil(uncertainty)
